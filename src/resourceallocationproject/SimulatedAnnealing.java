@@ -19,7 +19,7 @@ public class SimulatedAnnealing {
    
    public  SimulatedAnnealing(PreferenceTable preferenceTable){
 		this.preferenceTable = preferenceTable;
-		Algorithm();
+		Algo();
 	}
    
    public static double acceptanceProbability(int energy, int newEnergy, double temperature) {
@@ -51,7 +51,31 @@ public class SimulatedAnnealing {
 		
 	}   
    
-   public void Algorithm(){
+   public void Algo()
+   {
+      int bestVal = 0;
+      int curVal = 0;
+      int count = 0;
+      
+      bestVal = Algorithm();
+      
+      while (count < 10)
+      {
+         curVal = Algorithm();
+         if (bestVal > curVal)
+         {
+            bestVal = curVal;
+         }      
+         count++;
+         System.out.println("Final solution Energy "+count+": " + curVal);
+         System.out.println("Final solution Energy "+count+": " + bestVal);
+      }
+      System.out.println("Final solution Energy: " + bestVal);
+      
+   
+   }
+   
+   public int Algorithm(){
 		CandidateSolution currentSolution = new CandidateSolution(preferenceTable);
 		CandidateSolution bestSolution = new CandidateSolution(preferenceTable);
         System.out.println("Initial solution: " + currentSolution.getEnergy());
@@ -78,7 +102,8 @@ public class SimulatedAnnealing {
             temp *= 1-coolingRate;
         }
 
-        System.out.println("Final solution Energy: " + bestEnergy);
+       // System.out.println("Final solution Energy: " + bestEnergy);
+        return bestEnergy;
       //  bestSolution.printSolution();
       //  bestSolution.printPreferences();
 	}
