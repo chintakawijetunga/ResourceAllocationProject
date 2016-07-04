@@ -62,7 +62,7 @@ public class SimulatedAnnealing {
         // Loop until system has cooled
         while (temp > 1) {
             // Create new neighbour 
-        	table = new PreferenceTable("tabfile.txt");
+        	table = new PreferenceTable(ResourceAllocationProject.sPath);
 			//table.setupStudents();
         	CandidateSolution newSolution = new CandidateSolution(table);
         	currentSolution = change(newSolution, temp, table);

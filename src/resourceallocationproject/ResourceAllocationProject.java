@@ -15,7 +15,9 @@ import java.util.Vector;
 public class ResourceAllocationProject {
 
 	private static PreferenceTable preferenceTable;   
+   private static SimulatedAnnealing simulatedAnnealing;
 	protected static Random RND = new Random();
+   protected static String sPath = null;
 	/**
 	 * @param args
 	 *            the command line arguments
@@ -25,17 +27,18 @@ public class ResourceAllocationProject {
 	}
    
    public static void TestCode4(){
-      String sPath = "D:\\Personel\\Assign\\ResourceAllocationProject\\src\\resourceallocationproject\\ProjectAllocationData.tsv"; // setting
+      sPath = "D:\\Personel\\Assign\\ResourceAllocationProject\\src\\resourceallocationproject\\ProjectAllocationData.tsv"; // setting
 		preferenceTable = new PreferenceTable(sPath);
       preferenceTable.fillPreferencesOfAll(10);
       CandidateSolution candidateSolution = new CandidateSolution(preferenceTable);
 		String name = preferenceTable.getRandomStudent().getStudentName();
-		System.out.println("Assignment: "+candidateSolution.getAssignmentFor(name));
-		System.out.println("**********************************************************************************");
-		System.out.println("Randon Assignment: "+candidateSolution.getRandomAssignment());
-		System.out.println("**********************************************************************************");
-      System.out.println("Energy: " + candidateSolution.getEnergy());
-		System.out.println("**********************************************************************************");
+//		System.out.println("Assignment: "+candidateSolution.getAssignmentFor(name));
+//		System.out.println("**********************************************************************************");
+//		System.out.println("Randon Assignment: "+candidateSolution.getRandomAssignment());
+//		System.out.println("**********************************************************************************");
+//      System.out.println("Energy: " + candidateSolution.getEnergy());
+//		System.out.println("**********************************************************************************");
+      simulatedAnnealing = new SimulatedAnnealing(preferenceTable);
    }
    
    public static void TestCode1() {
