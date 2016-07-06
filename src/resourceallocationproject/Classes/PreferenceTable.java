@@ -1,24 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package resourceallocationproject;
+package resourceallocationproject.Classes;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.List;
-import java.util.Random;
 import javax.swing.JOptionPane;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-/**
- *
- * @author L D Chintaka Wijetunga 14209687
- */
 public class PreferenceTable {
 
 	String sFileName;
@@ -30,8 +18,7 @@ public class PreferenceTable {
 	}
 
 	PreferenceTable(String sName) { // constructor which accept one parameter
-		this.loadContentFromFile(sName); // calling the loadContentFromFile()
-											// bypaasing the file name.
+		this.loadContentFromFile(sName); // calling the loadContentFromFile() bypaasing the file name.
 	}
 
 	private Vector<Vector> loadContentFromFile(String sName) {
@@ -87,14 +74,10 @@ public class PreferenceTable {
 					studentEntry.setOrderedProject(projectTopics);
 					if (projectTopics.size() == 1)
 						studentEntry.preAssignProject(projectTopics.firstElement());
-					studentHashtable.put(sStudentName, studentEntry); // putting the
-															// student entry
-															// object to the
-															// hashtable.
+					studentHashtable.put(sStudentName, studentEntry); // putting the student entry object to the hashtable.
 				}
 				isFirstLine = false;
-				vector2.add(vector1); // putting the student details vector to another
-							// vector.
+				vector2.add(vector1); // putting the student details vector to another vector.
 			}
 
 		} catch (Exception e) {
@@ -105,28 +88,18 @@ public class PreferenceTable {
 	}
 
 	public Vector<StudentEntry> getAllStudentEntries() {
-		Enumeration<StudentEntry> eStudentEntry = studentHashtable.elements(); // getting
-																// elements in
-																// the hashtable
-																// to a
-																// enumerator.
+		Enumeration<StudentEntry> eStudentEntry = studentHashtable.elements(); // getting elements in the hashtable to a enumerator.
 		Vector<StudentEntry> vStudentDetails = new Vector<StudentEntry>();
 		while (eStudentEntry.hasMoreElements()) {
-			vStudentDetails.add((StudentEntry) eStudentEntry.nextElement()); // adding the
-																	// details
-																	// to the
-																	// vector.
+			vStudentDetails.add((StudentEntry) eStudentEntry.nextElement()); // adding the details to the vector.
 		}
 		return vStudentDetails;
 	}
 
 	public StudentEntry getEntryFor(String sname) {
-		if (studentHashtable.containsKey(sname)) // check whether the key exists in
-												// the hastable.
+		if (studentHashtable.containsKey(sname)) // check whether the key exists in the hastable.
 		{
-			return (StudentEntry) studentHashtable.get(sname); // getting the
-															// specific student
-															// entry object.
+			return (StudentEntry) studentHashtable.get(sname); // getting the specific student entry object.
 		} else {
 			return null;
 		}

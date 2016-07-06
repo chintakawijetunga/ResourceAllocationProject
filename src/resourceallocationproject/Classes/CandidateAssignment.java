@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package resourceallocationproject;
+package resourceallocationproject.Classes;
 
-/**
- *
- * @author L D Chintaka Wijetunga 14209687
- */
 public class CandidateAssignment {
 
 	private StudentEntry studentEntry = null;
@@ -16,31 +7,14 @@ public class CandidateAssignment {
 	private String currentAssignment = null;
 
 	CandidateAssignment(StudentEntry studentEntry) {
-		this.studentEntry = studentEntry; // encapsulating the studentEntry
-											// object.
+		this.studentEntry = studentEntry; // encapsulating the studentEntry object.
 		this.randomizeAssignment(); // calling randomizeAssignment()
 	}
 
 	public void randomizeAssignment() {
-		this.currentAssignment = this.studentEntry.getRandomPreference().intern(); // getting
-																			// a
-																			// random
-																			// preference.
-		studentEntry.setAssingedProject(this.currentAssignment); // setting it
-																	// as the
-																	// assigned
-																	// project.
-																	// (before
-																	// this,
-																	// should
-																	// check
-																	// whether
-																	// any other
-																	// student
-																	// has been
-																	// assigned
-																	// with
-																	// this)
+		this.currentAssignment = this.studentEntry.getRandomPreference().intern(); // getting a random preference.
+		studentEntry.setAssingedProject(this.currentAssignment); // setting it as the assigned project. (before this, should check whether any other student has been assigned with this)
+      
 		// ******
 		// Code to undo the changes back to previous if needed. (To be added)
 		// this.undoChange();
@@ -49,12 +23,7 @@ public class CandidateAssignment {
 
 	public void undoChange() {
 		if (!this.previousAssignment.equals(null)) {
-			this.currentAssignment = this.previousAssignment;// undoing the
-																// currentAssignment
-																// by assigning
-																// it with the
-																// previous
-																// assignment.
+			this.currentAssignment = this.previousAssignment;// undoing the currentAssignment by assigning it with the previous assignment.
 			this.studentEntry.setAssingedProject(null);
 		}
 	}

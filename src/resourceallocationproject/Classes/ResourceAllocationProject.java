@@ -1,17 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package resourceallocationproject;
+package resourceallocationproject.Classes;
 
 import java.util.Random;
 import java.util.Vector;
 
-/**
- *
- * @author L D Chintaka Wijetunga 14209687
- */
 public class ResourceAllocationProject {
 
 	private static PreferenceTable preferenceTable;   

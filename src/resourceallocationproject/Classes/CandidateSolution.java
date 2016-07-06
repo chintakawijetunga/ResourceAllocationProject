@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package resourceallocationproject;
+package resourceallocationproject.Classes;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
 
-/**
- *
- * @author L D Chintaka Wijetunga 14209687
- */
 public class CandidateSolution {
 	private PreferenceTable preferenceTable = null;
 	private CandidateAssignment candidateAssignment = null;
@@ -21,8 +12,7 @@ public class CandidateSolution {
 	static final int defaultPenalty = 1000;
 
 	public CandidateSolution(PreferenceTable preferenceTable) {
-		this.preferenceTable = preferenceTable; // encapsulating the
-												// PreferenceTable object.
+		this.preferenceTable = preferenceTable; // encapsulating the PreferenceTable object.
 		FillCandAssignHashTable();
 	}
 

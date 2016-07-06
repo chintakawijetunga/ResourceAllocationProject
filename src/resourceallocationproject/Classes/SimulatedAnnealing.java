@@ -1,16 +1,5 @@
-/**
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package resourceallocationproject;
+package resourceallocationproject.Classes;
 
-import java.io.IOException;
-
-/**
- *
- * @author chwtlk
- */
 public class SimulatedAnnealing {
    private double temp = 100000;
    private double coolingRate = 0.0003;
