@@ -6,6 +6,7 @@ public class SimulatedAnnealing {
    private PreferenceTable preferenceTable;
    private CandidateSolution bestSolution;
    private CandidateSolution optimumSolution;
+   private final static double e = 2.71828;
    
    
    public  SimulatedAnnealing(PreferenceTable preferenceTable){
@@ -19,7 +20,7 @@ public class SimulatedAnnealing {
             return 1.0;
         }
         // If the new solution is worse, calculate an acceptance probability
-        return Math.exp((energy - newEnergy) / temperature);
+        return Math.exp(e * ((energy - newEnergy) / temperature));
     }
 
 	
@@ -87,9 +88,14 @@ public class SimulatedAnnealing {
             // Keep track of the best solution found
             if (currentSolution.getEnergy() < bestEnergy) {
             	bestSolution = currentSolution;
-               bestEnergy = currentSolution.getEnergy();
+                bestEnergy = currentSolution.getEnergy();
                
-            } 
+            } else {
+    			if(acceptanceProbability(bestEnergy, currentSolution.getEnergy(), temp)  > Math.random()) {
+    				bestSolution = currentSolution;
+                    bestEnergy = currentSolution.getEnergy();
+    			} 
+    		}
             // Cool system
             //System.out.println(temp);
             temp *= 1-coolingRate;

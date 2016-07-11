@@ -8,7 +8,7 @@ public class ResourceAllocationProject {
 	private static PreferenceTable preferenceTable;   
    private static SimulatedAnnealing simulatedAnnealing;
 	protected static Random RND = new Random();
-   protected static String sPath = null;
+   protected static String sPath = "ProjectAllocationData.tsv";
 	/**
 	 * @param args
 	 *            the command line arguments
@@ -18,8 +18,9 @@ public class ResourceAllocationProject {
 	}
    
    public static void TestCode4(){
-      sPath = "D:\\Personel\\Assign\\ResourceAllocationProject\\src\\resourceallocationproject\\Files\\ProjectAllocationData.tsv"; // setting
-		preferenceTable = new PreferenceTable(sPath);
+	   sPath = "D:\\Personel\\Assign\\ResourceAllocationProject\\src\\resourceallocationproject\\Files\\ProjectAllocationData.tsv"; // setting
+	   sPath = "ProjectAllocationData.tsv"; // setting
+	   preferenceTable = new PreferenceTable(sPath);
       preferenceTable.fillPreferencesOfAll(10);
       CandidateSolution candidateSolution = new CandidateSolution(preferenceTable);
 		String name = preferenceTable.getRandomStudent().getStudentName();
