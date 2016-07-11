@@ -18,17 +18,17 @@ public class ResourceAllocationProject {
 	}
    
    public static void TestCode4(){
-      sPath = "D:\\Personel\\Assign\\ResourceAllocationProject\\src\\resourceallocationproject\\ProjectAllocationData.tsv"; // setting
+      sPath = "D:\\Personel\\Assign\\ResourceAllocationProject\\src\\resourceallocationproject\\Files\\ProjectAllocationData.tsv"; // setting
 		preferenceTable = new PreferenceTable(sPath);
       preferenceTable.fillPreferencesOfAll(10);
       CandidateSolution candidateSolution = new CandidateSolution(preferenceTable);
 		String name = preferenceTable.getRandomStudent().getStudentName();
-//		System.out.println("Assignment: "+candidateSolution.getAssignmentFor(name));
-//		System.out.println("**********************************************************************************");
-//		System.out.println("Randon Assignment: "+candidateSolution.getRandomAssignment());
-//		System.out.println("**********************************************************************************");
-//      System.out.println("Energy: " + candidateSolution.getEnergy());
-//		System.out.println("**********************************************************************************");
+		System.out.println("Assignment: "+candidateSolution.getAssignmentFor(name));
+		System.out.println("**********************************************************************************");
+		System.out.println("Randon Assignment: "+candidateSolution.getRandomAssignment());
+		System.out.println("**********************************************************************************");
+      System.out.println("Energy: " + candidateSolution.getEnergy());
+		System.out.println("**********************************************************************************");
       simulatedAnnealing = new SimulatedAnnealing(preferenceTable);
    }
    
@@ -36,11 +36,14 @@ public class ResourceAllocationProject {
 		// **********************************************************
 		// Temparary code to test the StudentEntry class object.
 		// 1. All Students
+      sPath = "D:\\Personel\\Assign\\ResourceAllocationProject\\src\\resourceallocationproject\\Files\\ProjectAllocationData.tsv"; // setting
+		preferenceTable = new PreferenceTable(sPath);
+      preferenceTable.fillPreferencesOfAll(10);
 		Vector<StudentEntry> test = preferenceTable.getAllStudentEntries();
 		for (int i = 0; i < test.size(); i++) {
 			System.out.print(test.get(i).currentProjSize() + "\t");
 			System.out.print(test.get(i).getStudentName() + "\t");
-			if (test.get(i).hasPreassignedPeoject()) {
+			if (test.get(i).hasPreassignedProject()) {
 				System.out.print("Yes" + "\t");
 			} else {
 				System.out.print("No" + "\t");	
@@ -62,7 +65,7 @@ public class ResourceAllocationProject {
 		//StudentEntry obj1 = preferenceTable.getRandomStudent();
 		if (obj1 != null) {
 			System.out.print(obj1.getStudentName() + "\t");
-			if (obj1.hasPreassignedPeoject()) {
+			if (obj1.hasPreassignedProject()) {
 				System.out.print("Yes" + "\t");
 			} else {
 				System.out.print("No" + "\t");
@@ -84,7 +87,7 @@ public class ResourceAllocationProject {
 		if (obj1 != null) {
 			System.out.print(obj1.getNumberOfStatedPreferences() + "\t");
 			System.out.print(obj1.getStudentName() + "\t");
-			if (obj1.hasPreassignedPeoject()) {
+			if (obj1.hasPreassignedProject()) {
 				System.out.print("Yes" + "\t");
 			} else {
 				System.out.print("No" + "\t");

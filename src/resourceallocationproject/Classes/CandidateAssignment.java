@@ -12,13 +12,15 @@ public class CandidateAssignment {
 	}
 
 	public void randomizeAssignment() {
-		this.currentAssignment = this.studentEntry.getRandomPreference().intern(); // getting a random preference.
-		studentEntry.setAssingedProject(this.currentAssignment); // setting it as the assigned project. (before this, should check whether any other student has been assigned with this)
-      
-		// ******
-		// Code to undo the changes back to previous if needed. (To be added)
-		// this.undoChange();
-		this.previousAssignment = this.currentAssignment;
+//		this.currentAssignment = this.studentEntry.getRandomPreference().intern(); // getting a random preference.
+//		studentEntry.setAssingedProject(this.currentAssignment); // setting it as the assigned project. (before this, should check whether any other student has been assigned with this)
+//      
+//		// ******
+//		// Code to undo the changes back to previous if needed. (To be added)
+//		// this.undoChange();
+//		this.previousAssignment = this.currentAssignment;
+      previousAssignment = currentAssignment;
+		currentAssignment = studentEntry.getRandomPreference().intern();
 	}
 
 	public void undoChange() {

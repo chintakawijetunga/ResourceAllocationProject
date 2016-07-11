@@ -43,7 +43,7 @@ public class StudentEntry {
 										// variable.
 	}
 
-	public Boolean hasPreassignedPeoject() {
+	public Boolean hasPreassignedProject() {
 		return bPreAssigned; // return a boolean stating whether its prearranged
 								// or not
 	}
@@ -53,7 +53,9 @@ public class StudentEntry {
 	}
 
 	public void addProject(String pname) {
-		vProjects.add(pname.intern()); // add a new project to the list
+      if(!hasPreference(pname)) {
+         vProjects.add(pname.intern()); // add a new project to the list
+      }
 	}
 
 	public void setOrderedProject(Vector<String> projects) {
@@ -79,17 +81,27 @@ public class StudentEntry {
 
 	}
 
+   /*
+   Calculates the level of disappointment the student has with the assigned project.
+   */
 	public int getRanking(String proj) {
 		int rank = 0;
 		// If the project receive to the method exists in student's project list, return the index which it appears,
 		// else return -1.
-		if (vProjects.contains(proj.intern())) {
+		if(hasPreassignedProject()) {
+			return 0;
+		}
+		else if(hasPreference(proj.intern())) {
 			rank = vProjects.indexOf(proj.intern());
 		} 
 		else {
 			rank = -1;
 		}
 		return rank;
+	}
+   
+	public String toString() {
+		return "Name: "+this.sStudentName+" prefereces:"+getOrderedPreferences();
 	}
 
 }

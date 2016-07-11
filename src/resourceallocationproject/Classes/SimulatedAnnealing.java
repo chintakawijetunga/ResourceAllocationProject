@@ -1,9 +1,11 @@
 package resourceallocationproject.Classes;
 
 public class SimulatedAnnealing {
-   private double temp = 100000;
+   private double val = 1000;
    private double coolingRate = 0.0003;
    private PreferenceTable preferenceTable;
+   private CandidateSolution bestSolution;
+   private CandidateSolution optimumSolution;
    
    
    public  SimulatedAnnealing(PreferenceTable preferenceTable){
@@ -48,25 +50,27 @@ public class SimulatedAnnealing {
       
       bestVal = Algorithm();
       
-      while (count < 10)
+      while (count < 1)
       {
          curVal = Algorithm();
          if (bestVal > curVal)
          {
             bestVal = curVal;
+            optimumSolution = bestSolution;
          }      
          count++;
          System.out.println("Final solution Energy "+count+": " + curVal);
          System.out.println("Final solution Energy "+count+": " + bestVal);
       }
       System.out.println("Final solution Energy: " + bestVal);
-      
+      optimumSolution.PrintContents();
    
    }
    
    public int Algorithm(){
+      double temp = val;
 		CandidateSolution currentSolution = new CandidateSolution(preferenceTable);
-		CandidateSolution bestSolution = new CandidateSolution(preferenceTable);
+		bestSolution = currentSolution;
         System.out.println("Initial solution: " + currentSolution.getEnergy());
         int  bestEnergy = currentSolution.getEnergy();// Set as current best
         PreferenceTable table;
@@ -83,7 +87,7 @@ public class SimulatedAnnealing {
             // Keep track of the best solution found
             if (currentSolution.getEnergy() < bestEnergy) {
             	bestSolution = currentSolution;
-                bestEnergy = currentSolution.getEnergy();
+               bestEnergy = currentSolution.getEnergy();
                
             } 
             // Cool system

@@ -24,7 +24,23 @@ public class CandidateSolution {
 			candidateAssignements.put(studentEntries.getStudentName(), new CandidateAssignment(studentEntries));
 		}
 	}
-
+   public void PrintContents()
+   {  int count = 0;
+      Enumeration<CandidateAssignment> eStudentEntry = candidateAssignements.elements(); // getting elements in the hashtable to a enumerator.
+      Vector<CandidateAssignment> vStudentDetails = new Vector<CandidateAssignment>();
+      
+      while (eStudentEntry.hasMoreElements()) {
+         vStudentDetails.add((CandidateAssignment) eStudentEntry.nextElement()); // adding the details to the vector.
+         count++;
+      }
+      
+      for (int i = 0; i< count ; i++)
+      {
+         System.out.println(candidateAssignements.keySet().toArray()[i] +"   "+ vStudentDetails.get(i).getAssignedProject());
+      }
+   
+   
+   }
 	public CandidateAssignment getAssignmentFor(String sStudentName) {
 		// initializing candidateAssignment by using the sStudentName to get a
 		// instance of StudentEntry using getEntryFor().
@@ -45,61 +61,62 @@ public class CandidateSolution {
 		return -1 * getEnergy();
 	}
 
-	public int getEnergy() {
-		int totalEnergyValue = 0;
-		// Getting all the element of CandidateAssignments
-		Enumeration<CandidateAssignment> canAssignEnum = candidateAssignements.elements();
-		// Looping through all the CandidateAssignments and calculating the energy for each and
-		// getting the total energy
-		while (canAssignEnum.hasMoreElements()) {
-			totalEnergyValue += canAssignEnum.nextElement().getEnergy();
-		}
-		// Adding the Penalty value.
-		totalEnergyValue += getPenalties();
-		// Returning the 
-		return totalEnergyValue;
-	}
-
-	public int getPenalties() {
-		int totalPenaltyValue = 0;
-		CandidateAssignment candidateAssignment = null;
-      String assignedProject = null;
-      projectsAssigned = new Hashtable<>();
-		// Getting all the element of CandidateAssignments
-		Enumeration<CandidateAssignment> canAssignEnum = candidateAssignements.elements();
-		// Looping through each CandidateAssignments, add the assigned project in CandidateAssignments
-		// to a string variable, check whether the added CandidateAssignments project exists in the Hashtable.
-		// If exists, add a penalty of 1000, else, add the CandidateAssignments project to the 
-		// projectAssigned hashtable for future use.
-		while (canAssignEnum.hasMoreElements()) {
-			candidateAssignment = canAssignEnum.nextElement();
-         assignedProject = candidateAssignment.getAssignedProject().intern();
-			if (projectsAssigned.containsKey(assignedProject)) {
-				totalPenaltyValue += defaultPenalty;
-			} else {
-				projectsAssigned.put(assignedProject, "Assigned");
-			}         
-		}
-		// returning the penalty value.
-		return totalPenaltyValue;
-	}
+//	public int getEnergy() {
+//		int totalEnergyValue = 0;
+//		// Getting all the element of CandidateAssignments
+//		Enumeration<CandidateAssignment> canAssignEnum = candidateAssignements.elements();
+//		// Looping through all the CandidateAssignments and calculating the energy for each and
+//		// getting the total energy
+//		while (canAssignEnum.hasMoreElements()) {
+//			totalEnergyValue += canAssignEnum.nextElement().getEnergy();
+//		}
+//		// Adding the Penalty value.
+//		totalEnergyValue += getPenalties();
+//		// Returning the 
+//		return totalEnergyValue;
+//	}
+//
+//	public int getPenalties() {
+//		int totalPenaltyValue = 0;
+//		CandidateAssignment candidateAssignment = null;
+//      String assignedProject = null;
+//      projectsAssigned = new Hashtable<>();
+//		// Getting all the element of CandidateAssignments
+//		Enumeration<CandidateAssignment> canAssignEnum = candidateAssignements.elements();
+//		// Looping through each CandidateAssignments, add the assigned project in CandidateAssignments
+//		// to a string variable, check whether the added CandidateAssignments project exists in the Hashtable.
+//		// If exists, add a penalty of 1000, else, add the CandidateAssignments project to the 
+//		// projectAssigned hashtable for future use.
+//		while (canAssignEnum.hasMoreElements()) {
+//			candidateAssignment = canAssignEnum.nextElement();
+//         assignedProject = candidateAssignment.getAssignedProject().intern();
+//			if (projectsAssigned.containsKey(assignedProject)) {
+//				totalPenaltyValue += defaultPenalty;
+//			} else {
+//				projectsAssigned.put(assignedProject, "Assigned");
+//			}         
+//		}
+//		// returning the penalty value.
+//		return totalPenaltyValue;
+//	}
    
    //  
-   public int getEnergy2(){
+   public int getEnergy(){
    Vector<CandidateAssignment> assignments = new Vector<>(candidateAssignements.values());
    int totalEnergy = 0;
    int totalPenalty = 0;
    String assignedProject;
+   projectsAssigned = new Hashtable<>();
    
    for (CandidateAssignment assignment : assignments){
       assignedProject = assignment.getAssignedProject().intern();
+      totalEnergy += assignment.getEnergy();
       if (projectsAssigned.containsKey(assignedProject)){
          totalPenalty += defaultPenalty;
       }
       else{
          projectsAssigned.put(assignedProject, "Assigned");
       }
-      totalEnergy += assignment.getEnergy();
    }     
       totalEnergy += totalPenalty;
       return totalEnergy;
