@@ -2,7 +2,7 @@ package resourceallocationproject.Classes;
 
 import java.util.Vector;
 
-public class StudentEntry {
+public class StudentEntry implements Cloneable {
 
 	String sStudentName;
 	Boolean bPreAssigned = false;

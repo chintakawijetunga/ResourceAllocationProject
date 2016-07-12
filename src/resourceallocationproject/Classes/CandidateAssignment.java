@@ -1,6 +1,6 @@
 package resourceallocationproject.Classes;
 
-public class CandidateAssignment {
+public class CandidateAssignment  implements Cloneable{
 
 	private StudentEntry studentEntry = null;
 	private String previousAssignment = null;

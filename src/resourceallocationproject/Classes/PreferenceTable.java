@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-public class PreferenceTable {
+public class PreferenceTable  implements Cloneable{
 
    String sFileName;
    private Hashtable<String, StudentEntry> studentHashtable = new Hashtable<String, StudentEntry>();
