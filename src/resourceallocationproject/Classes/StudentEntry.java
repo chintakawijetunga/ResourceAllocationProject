@@ -39,6 +39,7 @@ public class StudentEntry implements Cloneable {
 	}
 
 	public void preAssignProject(String pname) {
+      bPreAssigned = true;
 		sPreAssignedProject = pname; // Assign the preassigned project to
 										// variable.
 	}

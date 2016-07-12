@@ -18,7 +18,7 @@ public class CandidateSolution implements Cloneable {
    }
 
    public void FillCandAssignHashTable() {
-		// populating the Hashtable with the CandidateAssignment instances respective
+      // populating the Hashtable with the CandidateAssignment instances respective
       // to each student setting the student name as the key.
       this.candidateAssignements = new Hashtable<String, CandidateAssignment>();
       for (StudentEntry studentEntries : preferenceTable.getAllStudentEntries()) {
@@ -37,27 +37,33 @@ public class CandidateSolution implements Cloneable {
       }
 
       for (int i = 0; i < count; i++) {
-         System.out.println(candidateAssignements.keySet().toArray()[i] + "   " + vStudentDetails.get(i).getAssignedProject());
+         String StudentName = (String) candidateAssignements.keySet().toArray()[i];
+         String AssignedProject = vStudentDetails.get(i).getAssignedProject();
+         StringBuilder space = new StringBuilder();
+         for (int toPrepend = 20 - StudentName.length(); toPrepend > 0; toPrepend--) {
+            space.append('-');
+         }
+         System.out.println(StudentName + "   " + space + AssignedProject);
       }
 
    }
 
    public CandidateAssignment getAssignmentFor(String sStudentName) {
-		// initializing candidateAssignment by using the sStudentName to get a
+      // initializing candidateAssignment by using the sStudentName to get a
       // instance of StudentEntry using getEntryFor().
       candidateAssignment = candidateAssignements.get(sStudentName);
       return candidateAssignment; // returning that instance.
    }
 
    public CandidateAssignment getRandomAssignment() {
-		// returning an instance of CandidateAssignment which is chosen at random
+      // returning an instance of CandidateAssignment which is chosen at random
       // from the keys it has.
       Vector<String> keySet = new Vector<String>(candidateAssignements.keySet());
       return candidateAssignements.get(keySet.elementAt(ResourceAllocationProject.RND.nextInt(keySet.size())));
    }
 
    public int getFitness() {
-		// rather than returning the inverse of the Energy, return the negative of Energy
+      // rather than returning the inverse of the Energy, return the negative of Energy
       // to handle higher Energy values.
       return -1 * getEnergy();
    }

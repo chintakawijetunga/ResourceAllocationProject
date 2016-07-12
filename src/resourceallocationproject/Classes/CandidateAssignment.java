@@ -44,6 +44,10 @@ public class CandidateAssignment  implements Cloneable{
 		// Passing the current protect assigned to the student and get the ranking of it.
 		rank = studentEntry.getRanking(currentAssignment);
 		// Calculating the energy using the rank value.
+      if ( rank == -1)
+      {
+         return 400;
+      }
 		energy = (int) Math.pow((rank + 1), 2);
 		
 		return energy;

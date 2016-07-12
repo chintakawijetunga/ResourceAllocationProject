@@ -2,7 +2,7 @@ package resourceallocationproject.Classes;
 
 public class SimulatedAnnealing {
 
-   private static double val = 5000;
+   private static double val = 100000;
    private static double coolingRate = 0.0003;
 
 
@@ -87,7 +87,7 @@ public class SimulatedAnnealing {
       
       bestVal = SearchBestSolution(new CandidateSolution(preferenceTable)).getEnergy();
 
-      while (count < 5) {
+      while (count < 10) {
          bestSolution = SearchBestSolution(new CandidateSolution(preferenceTable));
          curVal = bestSolution.getEnergy();
          if (bestVal > curVal) {
@@ -110,9 +110,10 @@ public class SimulatedAnnealing {
       while (temperature > 1) {
          CandidateSolution currentSolution = initialSolution.clone();
          modify(currentSolution, temperature);
-
+         
          currentEnergy = currentSolution.getEnergy();
          bestEnergy = bestSolution.getEnergy();
+         
          if (currentEnergy < bestEnergy) {
             bestSolution = currentSolution;
          }

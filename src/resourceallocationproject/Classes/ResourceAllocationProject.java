@@ -18,19 +18,9 @@ public class ResourceAllocationProject {
 	}
    
    public static void TestCode4(){
-	   sPath = "D:\\Personel\\Assign\\ResourceAllocationProject\\src\\resourceallocationproject\\Files\\ProjectAllocationData.tsv"; // setting
-	   sPath = "ProjectAllocationData.tsv"; // setting
 	   preferenceTable = new PreferenceTable(sPath);
       preferenceTable.fillPreferencesOfAll(10);
-      CandidateSolution candidateSolution = new CandidateSolution(preferenceTable);
-		String name = preferenceTable.getRandomStudent().getStudentName();
-		System.out.println("Assignment: "+candidateSolution.getAssignmentFor(name));
-		System.out.println("**********************************************************************************");
-		System.out.println("Randon Assignment: "+candidateSolution.getRandomAssignment());
-		System.out.println("**********************************************************************************");
-      System.out.println("Energy: " + candidateSolution.getEnergy());
-		System.out.println("**********************************************************************************");
-      simulatedAnnealing = new SimulatedAnnealing(preferenceTable);
+		simulatedAnnealing = new SimulatedAnnealing(preferenceTable);
    }
    
    public static void TestCode1() {
