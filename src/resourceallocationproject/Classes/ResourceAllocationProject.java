@@ -18,9 +18,9 @@ public class ResourceAllocationProject {
 	}
    
    public static void TestCode4(){
-	   preferenceTable = new PreferenceTable(sPath);
+	  preferenceTable = new PreferenceTable(sPath);
       preferenceTable.fillPreferencesOfAll(10);
-		simulatedAnnealing = new SimulatedAnnealing(preferenceTable);
+	  simulatedAnnealing = new SimulatedAnnealing(preferenceTable);
    }
    
    public static void TestCode1() {

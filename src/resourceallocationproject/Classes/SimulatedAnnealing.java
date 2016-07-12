@@ -13,7 +13,7 @@ public class SimulatedAnnealing {
 
    public SimulatedAnnealing(PreferenceTable preferenceTable) {
       this.preferenceTable = preferenceTable;
-      Search(preferenceTable);
+      Search(this.preferenceTable);
       //SearchBestSolution(new CandidateSolution(preferenceTable));
    }
 
@@ -43,42 +43,7 @@ public class SimulatedAnnealing {
       }
 
    }
-
   
-
-//   public int Algorithm(){
-//      double temp = val;
-//		CandidateSolution currentSolution = new CandidateSolution(preferenceTable);
-//		bestSolution = currentSolution.clone();
-//      System.out.println("Initial solution: " + currentSolution.getEnergy());
-//      int  bestEnergy = currentSolution.getEnergy();
-//      PreferenceTable table;
-//      change(currentSolution, temp, preferenceTable);
-//        
-//        while (temp > 1) {
-//        	table = new PreferenceTable(ResourceAllocationProject.sPath);
-//        	CandidateSolution newSolution = new CandidateSolution(table);
-//        	currentSolution = change(newSolution, temp, table);
-//
-//            if (currentSolution.getEnergy() < bestEnergy) {
-//            	bestSolution = currentSolution;
-//                bestEnergy = currentSolution.getEnergy();
-//               
-//            } else {
-//    			if(acceptanceProbability(bestEnergy, currentSolution.getEnergy(), temp)  > Math.random()) {
-//    				bestSolution = currentSolution;
-//                    bestEnergy = currentSolution.getEnergy();
-//    			} 
-//    		}
-//            temp *= 1-coolingRate;
-//        }
-//
-//        return bestEnergy;
-//	}
-//   
-   
-   
-   
    
    public void Search(PreferenceTable preferenceTable) {
       int bestVal = 0;
