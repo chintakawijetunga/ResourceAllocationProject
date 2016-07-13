@@ -1,38 +1,43 @@
 package resourceallocationproject.Classes;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
 import java.util.Random;
 import java.util.Vector;
 
 public class ResourceAllocationProject {
 
-	private static PreferenceTable preferenceTable;   
+   private static PreferenceTable preferenceTable;
    private static SimulatedAnnealing simulatedAnnealing;
    private static CandidateSolution candidateSolution;
    protected static String sPath = "ProjectAllocationData.tsv";
-	/**
-	 * @param args
-	 *            the command line arguments
-	 */
-	public static void main(String[] args) {
+
+   /**
+    * @param args
+    * the command line arguments
+    */
+   public static void main(String[] args) {
       TestCode();
-	}
-   
-   public static void TestCode(){
-	  preferenceTable = new PreferenceTable(sPath);
-     preferenceTable.fillPreferencesOfAll(10);
-	  simulatedAnnealing = new SimulatedAnnealing(preferenceTable);
-     candidateSolution = simulatedAnnealing.Search();
-     PrintContents();
    }
-   
+
+   public static void TestCode() {
+      preferenceTable = new PreferenceTable(sPath);
+      preferenceTable.fillPreferencesOfAll(10);
+      simulatedAnnealing = new SimulatedAnnealing(preferenceTable);
+      candidateSolution = simulatedAnnealing.Search();
+      PrintContents();
+   }
+
    public static void PrintContents() {
+      String output = "";
       int count = 0;
       int[] prefRanks = new int[10];
       for (int k = 0; k < 10; k++) {
          prefRanks[k] = 0;
       }
-      Enumeration<CandidateAssignment> eStudentEntry = candidateSolution.GetCandidateAssignements().elements(); 
+      Enumeration<CandidateAssignment> eStudentEntry = candidateSolution.GetCandidateAssignements().elements();
       Vector<CandidateAssignment> vStudentDetails = new Vector<CandidateAssignment>();
 
       while (eStudentEntry.hasMoreElements()) {
@@ -104,11 +109,22 @@ public class ResourceAllocationProject {
          }
 
          ///////////////////////
+         output += StudentName + "   " + space + AssignedProject + space1 + (rank + 1) + "  " + preassigned + "\n";
          System.out.println(StudentName + "   " + space + AssignedProject + space1 + (rank + 1) + "  " + preassigned);
       }
       for (int k = 0; k < 10; k++) {
+         output += "Pref " + (k + 1) + ": " + prefRanks[k] + "\n";
          System.out.println("Pref " + (k + 1) + ": " + prefRanks[k]);
       }
+      PrintFile(output);
+   }
 
+   public static void PrintFile(String content) {
+      try {
+         PrintWriter writer = new PrintWriter("OutputFile.txt", "UTF-8");
+         writer.write(content);
+         writer.close();
+      } catch (Exception e) {
+      }
    }
 }

@@ -21,7 +21,7 @@ public class SimulatedAnnealing extends Thread {
       PreferenceTable preferenceTable = this.preferenceTable;
       bestVal = SearchBestSolution(new CandidateSolution(preferenceTable)).getEnergy();
 
-      while (count < 10) {
+      while (count < 1) {
          bestSolution = SearchBestSolution(new CandidateSolution(preferenceTable));
          curVal = bestSolution.getEnergy();
          if (bestVal > curVal) {
