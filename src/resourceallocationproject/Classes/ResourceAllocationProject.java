@@ -6,6 +6,11 @@ import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
 import java.util.Random;
 import java.util.Vector;
+import java.io.*;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFCell;
 
 public class ResourceAllocationProject {
 
@@ -14,11 +19,18 @@ public class ResourceAllocationProject {
    private static CandidateSolution candidateSolution;
    protected static String sPath = "ProjectAllocationData.tsv";
 
+   ///////////////////////////////////////
+   private static HSSFWorkbook workbook = new HSSFWorkbook();
+   private static HSSFSheet sheet = workbook.createSheet("FirstSheet");
+   private static HSSFRow rowhead = sheet.createRow((short) 0);
+   //////////////////////////////////////
+
    /**
     * @param args
     * the command line arguments
     */
    public static void main(String[] args) {
+
       TestCode();
    }
 
@@ -31,6 +43,7 @@ public class ResourceAllocationProject {
    }
 
    public static void PrintContents() {
+      ExcelFileHeader();
       String output = "";
       int count = 0;
       int[] prefRanks = new int[10];
@@ -111,20 +124,63 @@ public class ResourceAllocationProject {
          ///////////////////////
          output += StudentName + "   " + space + AssignedProject + space1 + (rank + 1) + "  " + preassigned + "\n";
          System.out.println(StudentName + "   " + space + AssignedProject + space1 + (rank + 1) + "  " + preassigned);
+         CreateRow((i + 1), StudentName, AssignedProject, preassigned, "NA", (rank + 1));
       }
       for (int k = 0; k < 10; k++) {
          output += "Pref " + (k + 1) + ": " + prefRanks[k] + "\n";
          System.out.println("Pref " + (k + 1) + ": " + prefRanks[k]);
       }
       PrintFile(output);
+      SaveFile();
    }
 
    public static void PrintFile(String content) {
+//      try {
+//         PrintWriter writer = new PrintWriter("OutputFile.txt", "UTF-8");
+//         writer.write(content);
+//         writer.close();
+//      } catch (Exception e) {
+//      }
+   }
+
+   public static void ExcelFileHeader() {
       try {
-         PrintWriter writer = new PrintWriter("OutputFile.txt", "UTF-8");
-         writer.write(content);
-         writer.close();
-      } catch (Exception e) {
+         rowhead.createCell(0).setCellValue("Student Name");
+         rowhead.createCell(1).setCellValue("Allocated Project");
+         rowhead.createCell(2).setCellValue("Is PreAssigned");
+         rowhead.createCell(3).setCellValue("Got a Preferred Project");
+         rowhead.createCell(4).setCellValue("Disapointment Factor");
+
+      } catch (Exception ex) {
+         System.out.println(ex);
       }
+   }
+
+   public static void CreateRow(int rowNumber, String StudentName, String AllocatedPro, String Preassigned, String GotPref, int DisapointmentFactor) {
+      try {
+         HSSFRow row = sheet.createRow((short) rowNumber);
+         row.createCell(0).setCellValue(StudentName);
+         row.createCell(1).setCellValue(AllocatedPro);
+         row.createCell(2).setCellValue(Preassigned);
+         row.createCell(3).setCellValue(GotPref);
+         row.createCell(4).setCellValue(DisapointmentFactor);
+
+      } catch (Exception ex) {
+         System.out.println(ex);
+      }
+
+   }
+
+   public static void SaveFile() {
+      try {
+         String filename = "OutputSA.xls";
+         FileOutputStream fileOut = new FileOutputStream(filename);
+         workbook.write(fileOut);
+         fileOut.close();
+         System.out.println("Your excel file has been generated!");
+      } catch (Exception ex) {
+         System.out.println(ex);
+      }
+
    }
 }

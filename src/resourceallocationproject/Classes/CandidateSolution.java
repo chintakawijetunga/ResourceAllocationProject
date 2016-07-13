@@ -118,9 +118,9 @@ public class CandidateSolution implements Cloneable {
    @Override
    public CandidateSolution clone() {
       try {
-         CandidateSolution clone = (CandidateSolution) super.clone();
-         clone.candidateAssignements = (Hashtable<String, CandidateAssignment>) clone.candidateAssignements.clone();
-         return clone;
+         CandidateSolution candidateSolution = (CandidateSolution) super.clone();
+         candidateSolution.candidateAssignements = (Hashtable<String, CandidateAssignment>) candidateSolution.candidateAssignements.clone();
+         return candidateSolution;
       } catch (CloneNotSupportedException e) {
          return null;
       }
@@ -131,6 +131,4 @@ public class CandidateSolution implements Cloneable {
       return this.candidateAssignements;
    }
 
-   // Done for testing purposes.
-   
 }
