@@ -43,7 +43,7 @@ public class ResourceAllocationProject {
    }
 
    public static void PrintContents() {
-      ExcelFileHeader();
+    //  ExcelFileHeader();
       String output = "";
       int count = 0;
       int[] prefRanks = new int[10];
@@ -122,25 +122,25 @@ public class ResourceAllocationProject {
          }
 
          ///////////////////////
-         output += StudentName + "   " + space + AssignedProject + space1 + (rank + 1) + "  " + preassigned + "\n";
+         output += StudentName + "\t" + AssignedProject + "\t" + (rank + 1) + "\t" + preassigned + "\n";
          System.out.println(StudentName + "   " + space + AssignedProject + space1 + (rank + 1) + "  " + preassigned);
-         CreateRow((i + 1), StudentName, AssignedProject, preassigned, "NA", (rank + 1));
+        // CreateRow((i + 1), StudentName, AssignedProject, preassigned, "NA", (rank + 1));
       }
       for (int k = 0; k < 10; k++) {
-         output += "Pref " + (k + 1) + ": " + prefRanks[k] + "\n";
+         //output += "Pref " + (k + 1) + ": " + prefRanks[k] + "\n";
          System.out.println("Pref " + (k + 1) + ": " + prefRanks[k]);
       }
       PrintFile(output);
-      SaveFile();
+     // SaveFile();
    }
 
    public static void PrintFile(String content) {
-//      try {
-//         PrintWriter writer = new PrintWriter("OutputFile.txt", "UTF-8");
-//         writer.write(content);
-//         writer.close();
-//      } catch (Exception e) {
-//      }
+      try {
+         PrintWriter writer = new PrintWriter("OutputFile.tsv", "UTF-8");
+         writer.write(content);
+         writer.close();
+      } catch (Exception e) {
+      }
    }
 
    public static void ExcelFileHeader() {
@@ -177,7 +177,7 @@ public class ResourceAllocationProject {
          FileOutputStream fileOut = new FileOutputStream(filename);
          workbook.write(fileOut);
          fileOut.close();
-         System.out.println("Your excel file has been generated!");
+         System.out.println("File done!");
       } catch (Exception ex) {
          System.out.println(ex);
       }

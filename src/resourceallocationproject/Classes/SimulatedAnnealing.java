@@ -21,7 +21,7 @@ public class SimulatedAnnealing extends Thread {
       PreferenceTable preferenceTable = this.preferenceTable;
       bestVal = SearchBestSolution(new CandidateSolution(preferenceTable)).getEnergy();
 
-      while (count < 1) {
+      while (count < 10) {
          bestSolution = SearchBestSolution(new CandidateSolution(preferenceTable));
          curVal = bestSolution.getEnergy();
          if (bestVal > curVal) {
@@ -73,7 +73,7 @@ public class SimulatedAnnealing extends Thread {
    }
 
    private static boolean acceptanceProbablity(int currentEnergy, int newEnergy, double temperature) {
-      double probability = Math.exp((newEnergy - currentEnergy) / temperature);
-      return probability > PreferenceTable.RND.nextDouble();
+      double probability = Math.exp((currentEnergy - newEnergy) / temperature);
+      return probability < PreferenceTable.RND.nextDouble();
    }
 }
