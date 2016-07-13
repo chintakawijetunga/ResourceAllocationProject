@@ -1,10 +1,9 @@
 package resourceallocationproject.Classes;
 
-public class SimulatedAnnealing {
+public class SimulatedAnnealing extends Thread {
 
    private static double val = 100000;
    private static double coolingRate = 0.0003;
-
 
    private PreferenceTable preferenceTable;
    private CandidateSolution bestSolution;
@@ -13,43 +12,13 @@ public class SimulatedAnnealing {
 
    public SimulatedAnnealing(PreferenceTable preferenceTable) {
       this.preferenceTable = preferenceTable;
-      Search(this.preferenceTable);
-      //SearchBestSolution(new CandidateSolution(preferenceTable));
    }
 
-   public static double acceptanceProbability(int energy, int newEnergy, double temperature) {
-      // If the new solution is better, accept it
-      if (newEnergy < energy) {
-         return 1.0;
-      }
-      // If the new solution is worse, calculate an acceptance probability
-      return Math.exp(e * ((energy - newEnergy) / temperature));
-   }
-
-   public static CandidateSolution change(CandidateSolution sol, double temp, PreferenceTable table) {
-      int prevEnergy = sol.getEnergy();
-      CandidateSolution oldSol = sol;
-      //sol.makeChange();
-      int difference = 0;
-
-      if (sol.getEnergy() < prevEnergy) {
-         return sol;
-      } else {
-         if (acceptanceProbability(oldSol.getEnergy(), sol.getEnergy(), temp) > Math.random()) {
-            return sol;
-         } else {
-            return oldSol;
-         }
-      }
-
-   }
-  
-   
-   public void Search(PreferenceTable preferenceTable) {
+   public CandidateSolution Search() {
       int bestVal = 0;
       int curVal = 0;
       int count = 0;
-      
+      PreferenceTable preferenceTable = this.preferenceTable;
       bestVal = SearchBestSolution(new CandidateSolution(preferenceTable)).getEnergy();
 
       while (count < 10) {
@@ -62,9 +31,9 @@ public class SimulatedAnnealing {
          count++;
       }
       System.out.println("Final solution Energy: " + bestVal);
-      optimumSolution.PrintContents();
-
+      return optimumSolution;
    }
+
    private static CandidateSolution SearchBestSolution(CandidateSolution candidateSolution) {
       CandidateSolution initialSolution = candidateSolution;
       CandidateSolution bestSolution = candidateSolution;
@@ -75,10 +44,10 @@ public class SimulatedAnnealing {
       while (temperature > 1) {
          CandidateSolution currentSolution = initialSolution.clone();
          modify(currentSolution, temperature);
-         
+
          currentEnergy = currentSolution.getEnergy();
          bestEnergy = bestSolution.getEnergy();
-         
+
          if (currentEnergy < bestEnergy) {
             bestSolution = currentSolution;
          }
@@ -89,20 +58,22 @@ public class SimulatedAnnealing {
       System.out.println("Solution Energy: " + bestEnergy);
       return bestSolution;
    }
-   
+
    private static void modify(CandidateSolution currentSolution, double temperature) {
       CandidateAssignment randomAssignment = currentSolution.getRandomAssignment();
       int currentEnergy = currentSolution.getEnergy();
       randomAssignment.randomizeAssignment();
       int newEnergy = currentSolution.getEnergy();
-      
-      if (newEnergy > currentEnergy)
-         if (acceptanceProbablity(currentEnergy, newEnergy, temperature))
+
+      if (newEnergy > currentEnergy) {
+         if (acceptanceProbablity(currentEnergy, newEnergy, temperature)) {
             randomAssignment.undoChange();
-   }   
-   
+         }
+      }
+   }
+
    private static boolean acceptanceProbablity(int currentEnergy, int newEnergy, double temperature) {
       double probability = Math.exp((newEnergy - currentEnergy) / temperature);
-      return probability > ResourceAllocationProject.RND.nextDouble();
+      return probability > PreferenceTable.RND.nextDouble();
    }
 }

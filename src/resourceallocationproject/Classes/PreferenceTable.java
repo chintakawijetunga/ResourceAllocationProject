@@ -3,25 +3,25 @@ package resourceallocationproject.Classes;
 import java.io.*;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Random;
 import javax.swing.JOptionPane;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
 public class PreferenceTable  implements Cloneable{
 
-   String sFileName;
    private Hashtable<String, StudentEntry> studentHashtable = new Hashtable<String, StudentEntry>();
-   private int noOfStudents = 0;
+   static Random RND = new Random();
 
    PreferenceTable() {
       // empty constructor
    }
 
-   PreferenceTable(String sName) { // constructor which accept one parameter
-      this.loadContentFromFile(sName); // calling the loadContentFromFile() bypaasing the file name.
+   PreferenceTable(String sFileName) { // constructor which accept one parameter
+      this.loadContentFromFile(sFileName); // calling the loadContentFromFile() bypaasing the file name.
    }
 
-   private Vector<Vector> loadContentFromFile(String sName) {
+   private Vector<Vector> loadContentFromFile(String sFileName) {
       // **** local variable declaration
       String sLine;
       StringTokenizer tokens;
@@ -38,9 +38,8 @@ public class PreferenceTable  implements Cloneable{
       Vector<Vector> vector2 = new Vector();
       // ********
 
-      this.sFileName = sName;
       try {
-         FileInputStream fileInputStream = new FileInputStream(this.sFileName);
+         FileInputStream fileInputStream = new FileInputStream(sFileName);
          BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
 
          while ((sLine = bufferedReader.readLine()) != null) { // reading the file
@@ -48,7 +47,6 @@ public class PreferenceTable  implements Cloneable{
             // until the end.
             count = 0;
             if (!isFirstLine) {
-               noOfStudents++;
                tokens = new StringTokenizer(sLine, "\t"); // tokenizing the
                // line.
                numTokens = tokens.countTokens();
@@ -111,7 +109,7 @@ public class PreferenceTable  implements Cloneable{
       // and using the getAllStudentEntries() get the vector containing all the StudentEntry
       // objects. Pick a index in that vector using the random no, and returning that 
       // StudentEntry object.
-      return this.getAllStudentEntries().get(ResourceAllocationProject.RND.nextInt(studentHashtable.size()));
+      return this.getAllStudentEntries().get(PreferenceTable.RND.nextInt(studentHashtable.size()));
    }
 
    public String getRandomPreference() {

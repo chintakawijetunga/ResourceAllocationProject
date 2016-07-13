@@ -1,5 +1,6 @@
 package resourceallocationproject.Classes;
 
+import java.util.Enumeration;
 import java.util.Random;
 import java.util.Vector;
 
@@ -7,92 +8,107 @@ public class ResourceAllocationProject {
 
 	private static PreferenceTable preferenceTable;   
    private static SimulatedAnnealing simulatedAnnealing;
-	protected static Random RND = new Random();
+   private static CandidateSolution candidateSolution;
    protected static String sPath = "ProjectAllocationData.tsv";
 	/**
 	 * @param args
 	 *            the command line arguments
 	 */
 	public static void main(String[] args) {
-      TestCode4();
+      TestCode();
 	}
    
-   public static void TestCode4(){
+   public static void TestCode(){
 	  preferenceTable = new PreferenceTable(sPath);
-      preferenceTable.fillPreferencesOfAll(10);
+     preferenceTable.fillPreferencesOfAll(10);
 	  simulatedAnnealing = new SimulatedAnnealing(preferenceTable);
+     candidateSolution = simulatedAnnealing.Search();
+     PrintContents();
    }
    
-   public static void TestCode1() {
-		// **********************************************************
-		// Temparary code to test the StudentEntry class object.
-		// 1. All Students
-      sPath = "D:\\Personel\\Assign\\ResourceAllocationProject\\src\\resourceallocationproject\\Files\\ProjectAllocationData.tsv"; // setting
-		preferenceTable = new PreferenceTable(sPath);
-      preferenceTable.fillPreferencesOfAll(10);
-		Vector<StudentEntry> test = preferenceTable.getAllStudentEntries();
-		for (int i = 0; i < test.size(); i++) {
-			System.out.print(test.get(i).currentProjSize() + "\t");
-			System.out.print(test.get(i).getStudentName() + "\t");
-			if (test.get(i).hasPreassignedProject()) {
-				System.out.print("Yes" + "\t");
-			} else {
-				System.out.print("No" + "\t");	
-			}
-			Vector<String> projectTopics = new Vector<String>();
-			projectTopics = test.get(i).getOrderedPreferences();
+   public static void PrintContents() {
+      int count = 0;
+      int[] prefRanks = new int[10];
+      for (int k = 0; k < 10; k++) {
+         prefRanks[k] = 0;
+      }
+      Enumeration<CandidateAssignment> eStudentEntry = candidateSolution.GetCandidateAssignements().elements(); 
+      Vector<CandidateAssignment> vStudentDetails = new Vector<CandidateAssignment>();
 
-			for (int j = 0; j < projectTopics.size(); j++) {
-				System.out.print(projectTopics.get(j) + "\t");
-			}
+      while (eStudentEntry.hasMoreElements()) {
+         vStudentDetails.add((CandidateAssignment) eStudentEntry.nextElement());
+         count++;
+      }
 
-			System.out.println();
-		}
-	}
+      for (int i = 0; i < count; i++) {
+         String StudentName = (String) candidateSolution.GetCandidateAssignements().keySet().toArray()[i];
+         String AssignedProject = vStudentDetails.get(i).getAssignedProject();
+         StudentEntry std = ResourceAllocationProject.preferenceTable.getEntryFor(StudentName);
+         String preassigned = null;
+         if (std.bPreAssigned) {
+            preassigned = "Preassigned";
+         } else {
+            preassigned = "Not Preassigned";
+         }
+         int rank = std.getRanking(AssignedProject);
+         StringBuilder space = new StringBuilder();
+         for (int toPrepend = 20 - StudentName.length(); toPrepend > 0; toPrepend--) {
+            space.append('-');
+         }
+         StringBuilder space1 = new StringBuilder();
+         for (int toPrepend = 130 - (StudentName + "   " + space + AssignedProject).length(); toPrepend > 0; toPrepend--) {
+            space1.append('*');
+         }
+         ////////////////////////
+         switch (rank) {
+            case 0: {
+               prefRanks[0] += 1;
+               break;
+            }
+            case 1: {
+               prefRanks[1] += 1;
+               break;
+            }
+            case 2: {
+               prefRanks[2] += 1;
+               break;
+            }
+            case 3: {
+               prefRanks[3] += 1;
+               break;
+            }
+            case 4: {
+               prefRanks[4] += 1;
+               break;
+            }
+            case 5: {
+               prefRanks[5] += 1;
+               break;
+            }
+            case 6: {
+               prefRanks[6] += 1;
+               break;
+            }
+            case 7: {
+               prefRanks[7] += 1;
+               break;
+            }
+            case 8: {
+               prefRanks[8] += 1;
+               break;
+            }
+            case 9: {
+               prefRanks[9] += 1;
+               break;
+            }
+         }
 
-	public static void TestCode2(String name) {
-		// 2. One particular Student
-		 StudentEntry obj1 = preferenceTable.getEntryFor(name);
-		//StudentEntry obj1 = preferenceTable.getRandomStudent();
-		if (obj1 != null) {
-			System.out.print(obj1.getStudentName() + "\t");
-			if (obj1.hasPreassignedProject()) {
-				System.out.print("Yes" + "\t");
-			} else {
-				System.out.print("No" + "\t");
-			}
-			Vector<String> projectTopics = new Vector<String>();
-			projectTopics = obj1.getOrderedPreferences();
-			for (int j = 0; j < projectTopics.size(); j++) {
-				System.out.println(projectTopics.get(j) + "\t");
-			}
-		} else {
-			System.out.print("Specified Student namenot found");
-		}
-		System.out.println();
-		// ***********************************************************
-	}
+         ///////////////////////
+         System.out.println(StudentName + "   " + space + AssignedProject + space1 + (rank + 1) + "  " + preassigned);
+      }
+      for (int k = 0; k < 10; k++) {
+         System.out.println("Pref " + (k + 1) + ": " + prefRanks[k]);
+      }
 
-	public static void TestCode3(StudentEntry obj) {
-		StudentEntry obj1 = obj;
-		if (obj1 != null) {
-			System.out.print(obj1.getNumberOfStatedPreferences() + "\t");
-			System.out.print(obj1.getStudentName() + "\t");
-			if (obj1.hasPreassignedProject()) {
-				System.out.print("Yes" + "\t");
-			} else {
-				System.out.print("No" + "\t");
-			}
-			Vector<String> projectTopics = new Vector<String>();
-			projectTopics = obj1.getOrderedPreferences();
-			for (int j = 0; j < projectTopics.size(); j++) {
-				System.out.print(projectTopics.get(j) + "\t");
-			}
-		} else {
-			System.out.print("Specified Student namenot found");
-		}
-		System.out.println();
-		// ***********************************************************
-	}
-
+   }
 }

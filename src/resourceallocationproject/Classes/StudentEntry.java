@@ -61,19 +61,20 @@ public class StudentEntry implements Cloneable {
 
 	public void setOrderedProject(Vector<String> projects) {
 		vProjects = projects; // sets the ordered projects
+      this.NoOfOrderedProjects = vProjects.size();
 	}
 
 	public boolean hasPreference(String preference) {
 		// checking whether a particular preference is already there in
 		// students's project vector.
-		return this.getOrderedPreferences().contains(preference);
+		return this.getOrderedPreferences().contains(preference.intern());
 	}
 
 	public String getRandomPreference() {
 		// generate a random no which is less than the projects stated by the
 		// student and using that random no,
 		// picking a project and returning it.
-		return this.getOrderedPreferences().get(ResourceAllocationProject.RND.nextInt(this.getNumberOfStatedPreferences()));
+		return this.getOrderedPreferences().get(PreferenceTable.RND.nextInt(this.vProjects.size()));
 	}
 
 	public int currentProjSize() {
@@ -92,7 +93,7 @@ public class StudentEntry implements Cloneable {
 		if(hasPreassignedProject()) {
 			return 0;
 		}
-		else if(hasPreference(proj.intern())) {
+		else if(hasPreference(proj)) {
 			rank = vProjects.indexOf(proj.intern());
 		} 
 		else {
