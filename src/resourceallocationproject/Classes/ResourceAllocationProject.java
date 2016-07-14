@@ -7,10 +7,6 @@ import java.util.Enumeration;
 import java.util.Random;
 import java.util.Vector;
 import java.io.*;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFCell;
 
 public class ResourceAllocationProject {
 
@@ -20,9 +16,6 @@ public class ResourceAllocationProject {
    protected static String sPath = "ProjectAllocationData.tsv";
 
    ///////////////////////////////////////
-   private static HSSFWorkbook workbook = new HSSFWorkbook();
-   private static HSSFSheet sheet = workbook.createSheet("FirstSheet");
-   private static HSSFRow rowhead = sheet.createRow((short) 0);
    //////////////////////////////////////
 
    /**
@@ -143,44 +136,4 @@ public class ResourceAllocationProject {
       }
    }
 
-   public static void ExcelFileHeader() {
-      try {
-         rowhead.createCell(0).setCellValue("Student Name");
-         rowhead.createCell(1).setCellValue("Allocated Project");
-         rowhead.createCell(2).setCellValue("Is PreAssigned");
-         rowhead.createCell(3).setCellValue("Got a Preferred Project");
-         rowhead.createCell(4).setCellValue("Disapointment Factor");
-
-      } catch (Exception ex) {
-         System.out.println(ex);
-      }
-   }
-
-   public static void CreateRow(int rowNumber, String StudentName, String AllocatedPro, String Preassigned, String GotPref, int DisapointmentFactor) {
-      try {
-         HSSFRow row = sheet.createRow((short) rowNumber);
-         row.createCell(0).setCellValue(StudentName);
-         row.createCell(1).setCellValue(AllocatedPro);
-         row.createCell(2).setCellValue(Preassigned);
-         row.createCell(3).setCellValue(GotPref);
-         row.createCell(4).setCellValue(DisapointmentFactor);
-
-      } catch (Exception ex) {
-         System.out.println(ex);
-      }
-
-   }
-
-   public static void SaveFile() {
-      try {
-         String filename = "OutputSA.xls";
-         FileOutputStream fileOut = new FileOutputStream(filename);
-         workbook.write(fileOut);
-         fileOut.close();
-         System.out.println("File done!");
-      } catch (Exception ex) {
-         System.out.println(ex);
-      }
-
-   }
 }
